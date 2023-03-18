@@ -8,9 +8,23 @@
         font-size: 16px;
     }
 
-   figure > img {
-    @apply border-amber-500 border-4 p-3;
-   }
+    .form-control {
+        @apply px-4 py-2 border border-gray-300 rounded w-full; 
+    }
+
+    .grad {
+        @apply px-4 py-2 cursor-pointer rounded border shadow flex-1 whitespace-nowrap bg-gradient-to-tr;
+    }
+    
+    .grad-0 {
+        @apply from-gray-900 to-gray-600 text-gray-100;    
+    }
+    .grad-1 {
+        @apply from-lime-900 to-lime-600 text-lime-100;
+    }
+    .grad-2 {
+        @apply from-amber-900 to-amber-600 text-amber-100;
+    }
 
     
 }

@@ -390,10 +390,3 @@ const Articles = [
     {"categoryId":27,"shopId":null,"articleNumber":null,"price":null,"id":358,"label":"Zwieback ","description":null,"base64Image":null}
 ]
 
-const ArticleClasses = [
-    "bg-gray-700 text-gray-100",
-    "bg-lime-700 text-lime-100",
-    "bg-amber-700 text-amber-100"
-]
-
-//text-cyan-100 bg-cyan-800
