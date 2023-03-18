@@ -1,35 +1,65 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lista e blerjeve</title>
-
     <link rel="icon" href="/favicon.ico" sizes="any">
     <link rel="icon" href="/favicon.svg" type="image/svg+xml">
     <link rel="manifest" href="/manifest.webmanifest">
 
     <link rel="stylesheet" href="/css/styles.css">
+    <script src="/json/staticdata.js" defer></script>
+    <script src="https://unpkg.com/alpinejs@3.12.0/dist/cdn.min.js" defer></script>
+    <script src="/js/index.js" defer></script>
 
-    <script src="https://unpkg.com/alpinejs@3.10.3/dist/cdn.min.js"></script>
-    <script src="/js/index.js"></script>
-    
 
 </head>
+
 <body>
-    <div x-data="dropdown">
-        <button @click="toggle">Expand</button>
-     
-        <span x-show="open">Content...</span>
+
+
+    <div class="p-2">
+
+        <div x-data="{ 
+            articleClasses: ArticleClasses,
+            categories:Categories.sort((a, b) => a.sortIndex > b.sortIndex), 
+            shops:Shops.sort((a, b) => a.id > b.id), 
+            articles: Articles.sort((a, b) => a.label.localeCompare(b.label)) }">
+
+            <template x-for="category in categories">
+                <div class="my-3" x-init="category.filteredArticles = articles.filter(a => a.categoryId == category.id)" >
+
+                    <div x-on:click="category.showArticles = !category.showArticles" x-text="category.label"
+                        :class="category.filteredArticles.some(fa => fa.state > 0) ? 'text-cyan-100 bg-cyan-800': (!category.showArticles ? ' text-gray-700 bg-gray-100 rounded-b':' text-gray-900 bg-gray-200') "
+                        class="px-3 py-2 text-xl cursor-pointer rounded-t">
+                    </div>
+
+                    <div x-show="category.showArticles"
+                        class="flex flex-wrap justify-start items-center gap-3 p-3 rounded-b bg-gray-200">
+                        <template x-for="article in category.filteredArticles">
+                            <div x-data="{ articleState: 0 }" x-text="article.label"
+                                x-on:click="articleState = ((articleState + 1) % articleClasses.length); article.state = articleState"
+                                :class="articleClasses[articleState]"
+                                class="px-4 py-2 cursor-pointer rounded border shadow flex-1 whitespace-nowrap"></div>
+                        </template>
+                    </div>
+
+                </div>
+            </template>
+
+
+
+        </div>
+
     </div>
-     
-    <div x-data="dropdown">
-        <button @click="toggle">Expand</button>
-     
-        <span x-show="open">Some Other Content...</span>
-    </div>
-    
+
+
+
+
 
 </body>
+
 </html>
